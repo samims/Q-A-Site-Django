@@ -1,0 +1,16 @@
+{% extends 'ans/base.html' %}
+{
+{% block title %}{{ user.username }}'s questions {% endblock %}
+
+{% block body %}
+
+    {% if questions %}
+        <ul>
+            {% for question in questions %}
+                <li><a href="{% url 'ans:detail' question.id %}">{{ question }}</a></li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

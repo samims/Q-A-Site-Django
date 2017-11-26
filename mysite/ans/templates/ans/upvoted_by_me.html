@@ -1,0 +1,11 @@
+{% extends 'ans/base.html' %}
+{% block title%} Title {% endblock %}
+
+{% block body %}
+    <h1>Answer upvoted by -- {{ user.username }}</h1>
+    {% for answer in answers %}
+        {{ answer}} <br>
+
+    {% endfor %}
+
+{% endblock %}

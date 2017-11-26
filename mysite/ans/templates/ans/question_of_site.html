@@ -1,0 +1,14 @@
+{% extends 'ans/base.html' %}
+{% block title %} {% endblock %}
+
+{% block body %}
+    {% if question %}
+        <h3><a href="{% url 'ans:detail' question.id %}">{{ question }}</a> <span style="font-size: 12px;">[ got {{ vote }} numbers of vote ]</span></h3>
+        <p>{{ question.description }}</p>
+    {% else %}
+        <b> No Question asked in last hour</b>
+    {% endif %}
+    {{ last_hour }}
+{% endblock %}
+
+

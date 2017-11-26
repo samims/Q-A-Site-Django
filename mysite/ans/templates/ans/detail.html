@@ -1,0 +1,48 @@
+
+{% extends 'ans/base.html' %}
+{% load tfilter %}
+{% block title %} {{ question.title }} {% endblock %}
+
+{% block body %}
+    <h3><i>{{ question.description }}</i></h3>
+
+    {% for answer in answers %}
+
+        <div>
+            <h3>{{ answer.answer_text }}  <span style="font-size: 15px">by [{{ user }}]</span></h3>
+            <form method="post" action="{% url 'ans:detail' question.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="type" value="vote">
+                <input type="hidden" name="answer_id" value="{{ answer.id }}">
+                <input type="submit" class="btn btn-primary" value="Upvote">
+{#                <span>#}
+{#                {{ get_item:item.answer.id }}#}
+{#            </span>#}
+            </form>
+        </div>
+
+    {% endfor %}
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#answer"><span
+            class="glyphicon glyphicon-pencil"></span> Answer
+    </button>
+    <form action="{% url 'ans:detail' question.id %}" method="post">
+    {% csrf_token %}
+        <input type="hidden" name="type" value="answer">
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+    <div id="answer" class="collapse">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-9">
+                                <textarea class="form-control" rows="6" placeholder="Write your answer here"
+                                          required name="write"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+    </form>
+    <script>
+
+    </script>
+
+{% endblock %}
