@@ -1,14 +1,19 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 {% block title %} {% endblock %}
 
 {% block body %}
-    {% if question %}
-        <h3><a href="{% url 'ans:detail' question.id %}">{{ question }}</a> <span style="font-size: 12px;">[ got {{ vote }} numbers of vote ]</span></h3>
-        <p>{{ question.description }}</p>
+    {% if ans_of_hour  and temp > 0 %}
+        {% for ans in answer_of_hour %}
+            {{ ans }}
+        {% endfor %}
+
+
+    {% elif ans_of_hour != None %}
+        Answer of the hour is : {{ ans }} it got {{ ans.vote_count }} votes
     {% else %}
-        <b> No Question asked in last hour</b>
+        No answer
     {% endif %}
-    {{ last_hour }}
+
 {% endblock %}
 
 

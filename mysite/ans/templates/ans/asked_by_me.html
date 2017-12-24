@@ -1,4 +1,4 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 {
 {% block title %}{{ user.username }}'s questions {% endblock %}
 
@@ -11,6 +11,11 @@
 
             {% endfor %}
         </ul>
+    {% else %}
+        <div class="alert alert-info alert-dismissable">
+            <a href="/" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Sorry!</strong> You haven't asked any question yet
+        </div>
     {% endif %}
 
 {% endblock %}

@@ -2,17 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# from .forms import UserForm
-
-
-# userinfo table
-# class UserInfo(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return self.useansr.first_name
-
-
 # Question table connected with User by foreignkey user
 class Question(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
@@ -28,9 +17,10 @@ class Question(models.Model):
 class Answer(models.Model):
     answer_text = models.TextField()
     questions = models.ForeignKey(Question, on_delete=models.CASCADE)
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField()
-
+    pub_date = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return self.answer_text
 

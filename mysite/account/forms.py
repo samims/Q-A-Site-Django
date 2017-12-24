@@ -2,9 +2,12 @@ from django import forms
 
 
 class RegistrationForm(forms.Form):
+    first_name = forms.CharField(label='First Name', max_length=35)
+    last_name = forms.CharField(label='Last Name', max_length=30)
     username = forms.CharField(required=True, label='Username', max_length=25)
     email = forms.CharField(required=True, label='Email', max_length=40)
     password = forms.CharField(required=True, label='Password', widget= forms.PasswordInput())
+
 
 
 

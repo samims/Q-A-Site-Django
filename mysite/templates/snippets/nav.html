@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!--Logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="{% url 'ans:index'  %}" class="navbar-brand">MySite</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainNavBar">
+
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'ans:index' %}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">View Options <span
+                            class="caret"></span> </a>
+                    <ul class="dropdown-menu">
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'ans:asked_by_me' user.id %}">Asked by Me</a></li>
+                        <li><a href="{% url 'ans:answered_by_me' user.id %}">Answered by me</a></li>
+                        <li><a href="{% url 'ans:upvoted_by_me' user.id %}">Upvoted ans by me</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'ans:question_of_hour' %}">Question of the hour</a></li>
+                        <li><a href="{% url 'ans:question_of_site' %}">Question of the site</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <div class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'account:logout' %}">{{ user }} Logout <span
+                        class=" glyphicon glyphicon-log-out"></span></a></li>
+                {% else %}
+
+                <li><a href="{% url 'account:register' %}">SignUp <span
+                        class=" glyphicon glyphicon-registration-mark"></span></a></li>
+
+                <li><a href="{% url 'account:login' %}">Login <span
+                        class=" glyphicon glyphicon-log-in"></span></a></li>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</nav>

@@ -1,4 +1,4 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 {
 {% block title %}{{ user.username }}'s answers {% endblock %}
 
@@ -7,10 +7,17 @@
         <ul>
             {% for answer in answers %}
 
-                <li><a href="{% url 'ans:detail' answer.questions_id%}" >{{ answer.questions.description }}</a><br> {{ answer }}</li>
-
+                <li>
+                    <a href="{% url 'ans:detail' answer.questions_id %}">{{ answer.questions.description }}</a><br> {{ answer }} 
+                </li> 
+                <br>
             {% endfor %}
         </ul>
+    {% else %}
+        <div class="alert alert-danger alert-dismissable">
+            <a href="/" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Sorry!</strong> We don't have any answer given by you
+        </div>
     {% endif %}
 
 {% endblock %}

@@ -1,7 +1,13 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 {% block body %}
-    <form method="POST">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+<div class="container">
+<form method="POST">
+    {% load bootstrap %}
+    {% csrf_token %}
+
+    {{form|bootstrap}}
+
+    <button type="submit" class="btn btn-success">Register</button>
+</form>
+    </div>
 {% endblock %}

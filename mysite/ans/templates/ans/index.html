@@ -1,14 +1,19 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 
 {% block body %}
     {% if latest_questions %}
         <ul>
-        {% for q in latest_questions %}
-            <li><b>{{ q.id }}:{{ q.title }} </b></li>
-            <li><a href="{% url 'ans:detail' q.id %}"> {{ q.description }}</a></li>
+            {% for q in latest_questions %}
+                <li><a href="{% url 'ans:detail' q.id %}"> <b>{{ q.id }}:{{ q.title }} </b></a></li>
+                {{ q.description }}
 
-        {% endfor %}
+            {% endfor %}
         </ul>
+    {% else %}
+        <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Sorry!</strong> We don't have Question Yet.
+        </div>
     {% endif %}
 
 {% endblock %}

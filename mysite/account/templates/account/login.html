@@ -1,9 +1,9 @@
-{% extends 'ans/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Login{% endblock %}
 
 {% block body %}
-    <form method="post">
+<form method="post">
     {% csrf_token %}
     <p>
         <label>Username</label>
@@ -14,5 +14,5 @@
         <input type="password" name="password">
     </p>
     <button class="btn btn-success" type="submit">Login</button>
-    </form>
+</form>
 {% endblock %}

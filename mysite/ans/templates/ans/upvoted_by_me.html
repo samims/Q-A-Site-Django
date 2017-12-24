@@ -1,11 +1,20 @@
-{% extends 'ans/base.html' %}
-{% block title%} Title {% endblock %}
+{% extends 'base.html' %}
+{% block title %} Title {% endblock %}
 
 {% block body %}
-    <h1>Answer upvoted by -- {{ user.username }}</h1>
-    {% for answer in answers %}
-        {{ answer}} <br>
+    {% if not upvoted %}
+        <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Sorry!</strong> We don't have any answer given by you
+        </div>
 
-    {% endfor %}
+    {% else %}
+        {% for obj in upvoted %}
+            <a href="{% url 'ans:detail' obj.answer.questions.id %}"> {{ obj.answer.questions }} </a> <br>
+            {{ obj.answer }} <br>
+
+
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}
