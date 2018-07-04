@@ -117,3 +117,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'ans:index'
+LOGOUT_REDIRECT_URL = '/login'

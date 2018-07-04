@@ -33,9 +33,14 @@ def register(request):
 
 
 def custom_login(request):
-    return HttpResponse('Hi')
+    if request.user.is_authenticated:
+        return redirect('accounts:profile')
+    return login(request )
+
 
 
 def profile(request):
-    context = {'user': request.user}
-    return render(request, template_name='accounts/profile.html', context=context)
+    if request.user.is_authenticated:
+        return render(request, 'accounts/profile.html')
+    return redirect('login')
+

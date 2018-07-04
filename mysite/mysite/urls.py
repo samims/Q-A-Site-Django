@@ -17,10 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import logout
 from account.views import custom_login, register
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    url(r'^login/$', custom_login,
-        {'template_name': 'account/login.html'}, name='login'),
+    url(r'^login/$',LoginView.as_view(redirect_authenticated_user=True, template_name='account/login.html'),name='login'),
     url(r'^register/$', register, name='register'),
     url(r'^logout/$', logout,
         {'template_name': 'account/logged_out.html'}, name='logout'),
