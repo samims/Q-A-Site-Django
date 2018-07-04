@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     # /
     url(r'^$', views.index, name='index'),
+    url(r'^add-question/$', views.question_create_view, name='question_add'),
 
     # /ans/question/1
     url(r'^question/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
@@ -13,7 +14,6 @@ urlpatterns = [
 
     # /ans/answer/username
     url(r'^answer/user/(?P<userid>[0-9]+)/$', views.answered_by_me, name='answered_by_me'),
-
 
     url(r'^upvote/user/(?P<userid>[0-9]+)/$', views.upvoted_by_me, name='upvoted_by_me'),
 

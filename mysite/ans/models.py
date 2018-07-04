@@ -17,16 +17,14 @@ class Question(models.Model):
 class Answer(models.Model):
     answer_text = models.TextField()
     questions = models.ForeignKey(Question, on_delete=models.CASCADE)
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return self.answer_text
 
 
 # connected with both User and Answers
 class Upvote(models.Model):
-    # vote = models.IntegerField(default=0)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

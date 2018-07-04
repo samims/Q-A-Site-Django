@@ -1,13 +1,38 @@
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+import datetime
 from django.db.models import Count
 import pytz
 from django.shortcuts import render, HttpResponseRedirect, redirect, reverse, HttpResponse, get_object_or_404
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+import pytz
+
+from .forms import UserForm, QuestionForm, AnswerForm
 from .models import Question, Answer, Upvote
 
 
 # index page of the site  and ans app
+@login_required()
+def question_create_view(request):
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            # form.cleaned_data()
+            form = form.save(commit=False)
+            form.pub_date = timezone.now()
+            form.user = request.user
+            form.save()
+            # print(form)
+            print("3rd **")
+            return HttpResponseRedirect('/')
+    else:
+        form = QuestionForm()
+    print("4th **")
+    return render(request, 'ans/question_form.html', {'form': form})
+
+
 def index(request):
     latest_questions = Question.objects.all().order_by('-pub_date')[:10][::-1]
     context = {'latest_questions': latest_questions}
@@ -56,20 +81,6 @@ def answered_by_me(request, userid):
     return render(request, template_name='ans/answered_by_me.html', context=context)
 
 
-#
-# def vote(request, question_id):
-#     question = Question.obects.get(pk=question_id)
-#
-#     if request.method == 'POST':
-#         if request.form.is_valid():
-#             user = request.user.is_authenticated()
-#
-#             upvote = Upvote.objects.create(user=user, answer=answer)
-#
-#             upvote.save()
-#             return HttpResponseRedirect(reverse('ans:detail', args=(question_id,)))
-
-
 # What are the upvotes done by me?
 def upvoted_by_me(request, userid):
     user = User.objects.get(pk=userid)
@@ -82,14 +93,12 @@ def upvoted_by_me(request, userid):
 def question_of_hour(request):
     last_answer = Answer.objects.filter(pub_date__gte=timezone.now() - timedelta(hours=1))
     # print(last_answer.extra(select))
-    incr=None
+    incr = None
     vote_count = None
     old_vote_count = last_answer[0].upvote_set.all().count()
-    print(old_vote_count)
     temp = 0
     try:
         ans_of_hour = [last_answer[0]]
-
     except IndexError:
         ans_of_hour = None
 
@@ -118,8 +127,10 @@ def question_of_hour(request):
 
 # Across the entire application, which question has had the highest number of votes ever.
 def question_of_the_site(request):
-    pass
-#     questions = Question.objects.all()
+
+    questions = Question.objects.all()
+    context = {'questions': questions}
+    return render(request, 'ans/ans_of_hour.html', context)
 #     old_vote_count = 0
 #     qsn_of_the_site = questions[0]
 #     for qsn in questions:

@@ -1,8 +1,9 @@
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from django import forms
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
+
 from .forms import RegistrationForm
 
 
@@ -23,10 +24,18 @@ def register(request):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                raise forms.ValidationError('username and password already exists')
+                raise forms.ValidationError(
+                    'username and password already exists')
 
     else:
         form = RegistrationForm()
     return render(request, 'account/register.html', {'form': form})
 
 
+def custom_login(request):
+    return HttpResponse('Hi')
+
+
+def profile(request):
+    context = {'user': request.user}
+    return render(request, template_name='accounts/profile.html', context=context)

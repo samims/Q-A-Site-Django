@@ -34,14 +34,14 @@
 
             <div class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'account:logout' %}">{{ user }} Logout <span
+                <li><a href="{% url 'logout' %}">{{ user }} Logout <span
                         class=" glyphicon glyphicon-log-out"></span></a></li>
                 {% else %}
 
-                <li><a href="{% url 'account:register' %}">SignUp <span
+                <li><a href="{% url 'register' %}">SignUp <span
                         class=" glyphicon glyphicon-registration-mark"></span></a></li>
 
-                <li><a href="{% url 'account:login' %}">Login <span
+                <li><a href="{% url 'login' %}">Login <span
                         class=" glyphicon glyphicon-log-in"></span></a></li>
                 {% endif %}
             </div>

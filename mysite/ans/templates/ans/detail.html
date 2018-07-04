@@ -7,7 +7,6 @@
     {{ question.description }}
     <br>
     {% for answer in answers %}
-
         <div>
             <h3>{{ answer.answer_text }} <span style="font-size: 15px">by [{{ answer.user }}]</span></h3>
             <form method="post" action="{% url 'ans:detail' question.id %}">
